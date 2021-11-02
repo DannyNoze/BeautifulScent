@@ -1,0 +1,28 @@
+<?php
+
+include("connection.php");
+
+//fetching data 
+$result=mysqli_query($connection,"SELECT * FROM contact");
+
+echo "<table class = 'tblview' align = 'center' width='100%' border=1 style='border-collapse:collapse;'>";
+echo "<tr bgcolor='#CCCCCC' align='center'>";
+echo "<td style='padding:1%;'>Name</td>";
+echo "<td style='padding:1%;'>Email</td>";
+echo "<td style='padding:1%;'>Subject</td>";
+echo "<td style='padding:1%;'>Comment</td>";
+echo "<td style='padding:1%;'>Action</td>";
+echo "</tr>";
+
+while($res=mysqli_fetch_array($result))
+{
+	echo "<tr>";
+	echo "<td style='padding:1%;'>".$res['name_tbl']."</td>";
+	echo "<td style='padding:1%;'>".$res['email_tbl']."</td>";
+	echo "<td style='padding:1%;'>".$res['subject_tbl']."</td>";
+	echo "<td style='padding:1%;'>".$res['comment_tbl']."</td>";
+	echo "<td align='center'><a href='edit.php?id=$res[contact_id]'>Edit</a> | <a href='delete.php?id=$res[contact_id]' onClick='return confirm(\"Are you sure you want to delete?\")'>Delete</a></td></tr>"; 
+}
+echo "</table>";
+?>
+<br><br><br><br><br>

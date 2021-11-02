@@ -1,0 +1,44 @@
+Form for admin page
+-------------------------------------------------------
+<form method="post">
+ 
+  <div class="container" style="width:100%; float:left;background-color:#f1f1f1">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" required>
+
+    <button type="submit" name = "submit">Login</button>
+    <button type="reset" style="background-color:#F00">Cancel</button>
+  </div>
+</form>
+
+-----------------------------------------
+php code after form
+------------------------------------------
+<?php
+	
+    if (isset($_POST['submit']))
+        {     
+   include("connection.php");
+	$table_name = "admin";
+  
+    session_start();
+    $username=$_POST['uname'];
+    $password=$_POST['psw'];
+    $_SESSION['login_user']=$username; 
+    $query = mysqli_query($connection,"SELECT username FROM $table_name WHERE username='$username' and password='$password'");
+	$num_row = mysqli_num_rows($query);
+	$row=mysqli_fetch_array($query);
+     if ( $num_row != 0)
+    {
+     echo "<script language='javascript' type='text/javascript'> location.href='viewdb.php' </script>";   
+      }
+      else
+      {
+    echo "<script type='text/javascript'>alert('User Name Or Password Invalid!')</script>";
+    }
+    }
+    ?>
+</div>
